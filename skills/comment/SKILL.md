@@ -1,0 +1,71 @@
+---
+name: comment
+description: Apply the repository's comment rules. Use whenever any code file is added or modified in this project. Treat comment completion as a required part of the code change, especially for concise Chinese comments, function notes, variable type clarity, and template/script/type block separators organized by functional module.
+metadata:
+  short-description: 项目注释约束
+---
+
+# Comment Rules
+
+## 适用场景
+
+- 在当前仓库内新增或修改代码时使用。
+- 只要发生代码改动，默认同步命中本 skill，不得跳过。
+- 只要当前代码改动链路中存在需要补充注释的地方，就必须按功能模块补充对应注释。
+
+## 必须遵守
+
+- 新增或修改代码时，补充简略注释，说明代码用途或关键逻辑。
+- 新增或修改函数、方法时，为每个函数或方法补充简略备注。
+- 新增或修改变量定义时，补充清晰直接的类型声明。
+- 注释补充属于代码改动的交付约束，不是只有用户显式要求时才执行的可选优化项。
+- 只要当前改动涉及需要补充注释的代码区域，必须按功能模块补充注释，不得只补局部零散注释。
+- 注释保持简短直接，不写逐行解释，不写与代码语义重复的内容。
+
+## 注释格式
+
+- `script` 中函数和方法的大类集中放在同一个代码块中。
+- `script` 分块统一使用：
+
+```text
+/******************************** xxxxxx ********************************/
+```
+
+- `TypeScript` 类型文件中的类型定义按模块集中放在同一个代码块中。
+- 类型模块分隔统一使用：
+
+```text
+/******************************** xxxxxx ********************************/
+```
+
+- 类型模块内的分类型说明统一使用：
+
+```text
+// xxxxxx
+```
+
+- 代码块中的函数、方法备注统一使用：
+
+```text
+// xxxxxx
+```
+
+- `template` 模板中每个模块之间统一使用：
+
+```html
+<!-------------------------- xxxxxx -------------------------->
+```
+
+- `template`、`script`、`type` 中新增或修改的注释，都要优先按功能模块组织后再补充。
+
+## 执行顺序
+
+1. 开始代码改动前，先判断当前改动涉及哪些功能模块。
+2. 编写或调整代码时，同步补齐该模块需要的模板注释、分块注释、函数备注和必要的中文说明。
+3. 结束代码改动前，再自检一次当前改动链路内的注释是否完整。
+
+## 执行提醒
+
+- 保持最小改动，只补当前改动必须的注释。
+- 注释风格与现有文件保持一致，不主动重构已有结构。
+- 在结束当前代码改动前，自检一次 `template` 模块分隔注释、`script` 分块注释、函数备注和改动点中文说明是否齐全。

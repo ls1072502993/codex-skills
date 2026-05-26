@@ -1,0 +1,7 @@
+interface:
+  display_name: "Vue"
+  short_description: "当前仓库Vue组件修改及开发规则约束"
+  default_prompt: "Use $vue to modify Vue components in this repository while following the project's component, reactivity, and minimal-change rules."
+
+policy:
+  allow_implicit_invocation: true

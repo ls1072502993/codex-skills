@@ -1,0 +1,4 @@
+interface:
+  display_name: "UniApp"
+  short_description: "当前仓库uni-app页面实现与平台能力规则"
+  default_prompt: "Use $uniapp when implementing uni-app pages, lifecycle logic, platform branches, or request flows in this repository."

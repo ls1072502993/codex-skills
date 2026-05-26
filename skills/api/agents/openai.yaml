@@ -1,0 +1,7 @@
+interface:
+  display_name: "API"
+  short_description: "当前仓库接口请求与返回值使用规则"
+  default_prompt: "Use $api when handling API requests, response consumption, or API type definitions in this repository."
+
+policy:
+  allow_implicit_invocation: true

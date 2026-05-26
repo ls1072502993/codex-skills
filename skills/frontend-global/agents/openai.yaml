@@ -1,0 +1,7 @@
+interface:
+  display_name: "Frontend Global"
+  short_description: "前端任务的全局编码与最小改动约束"
+  default_prompt: "在本仓库执行前端任务时，使用 $frontend-global。"
+
+policy:
+  allow_implicit_invocation: true

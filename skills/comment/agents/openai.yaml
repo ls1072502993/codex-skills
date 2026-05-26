@@ -1,0 +1,7 @@
+interface:
+  display_name: "Comment"
+  short_description: "当前仓库代码注释与分块格式规则"
+  default_prompt: "Use $comment when adding or updating code comments in this repository."
+
+policy:
+  allow_implicit_invocation: true
