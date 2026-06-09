@@ -13,6 +13,7 @@ description: 在当前仓库内处理 Vue 3、TypeScript 组件时使用。适�
 
 ## 必须遵守
 
+- `.vue` 文件内区块顺序固定为 `template`、`script`、`style`。
 - 保持现有 `script setup`、Composition API、TypeScript 写法，不额外切换风格。
 - 保持最小改动，只整理当前改动链路上的局部冗余，不顺手扩散到无关逻辑。
 - 页面状态、表单状态、查询条件按实际复杂度组织，不为了“通用性”增加额外抽象。
