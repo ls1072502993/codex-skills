@@ -22,6 +22,7 @@
 - `comment`：代码注释规则，要求改动时同步补齐必要注释并按模块组织
 - `css`：SCSS 编写规则，强调合法嵌套、层级一致与最小样式改动
 - `frontend-global`：前端全局规则，包含编码检查、最小改动、禁止无关重构等硬约束
+- `generate-ui`：UI 生成规则，适用于页面、组件和静态界面开发，强调直接交付代码且默认不启动本地预览、不用内置浏览器验排版
 - `git`：提交信息与提交流程规则，基于 Conventional Commits 并结合仓库本地约束
 - `uniapp`：uni-app 开发与小程序发行上传相关流程规则
 - `vue`：Vue 3 + TypeScript 组件开发规则，强调 `.vue` 文件按 `template`、`script`、`style` 排序、响应式简化、DOM 模板引用优先使用 `useTemplateRef` 与局部最小改动
