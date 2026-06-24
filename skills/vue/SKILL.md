@@ -35,6 +35,12 @@ description: 在当前仓库内处理 Vue 3、TypeScript 组件时使用。适�
 - 展示图片时，不在 `script` 中通过 `import` 引入图片资源，直接在 `template` 中结合 `v-if` 判断是否渲染对应标签。
 - 使用 `ref` 获取 DOM 元素时，如果项目内 Vue 版本支持 `useTemplateRef`，优先使用 `useTemplateRef`，不要直接用 `ref` 声明模板引用。
 
+## 组件交互约束
+
+- 组件对外暴露双向绑定能力时，只要当前场景适合使用 `defineModel`，就优先使用 `defineModel`。
+- 能用 `defineModel` 表达的 `v-model` / 多 `v-model` 交互，不要继续写成 `prop` + `update:key` 这类手动属性事件配对方式。
+- 只有在项目版本、历史接口兼容或明确的非 `v-model` 语义不适合 `defineModel` 时，才保留 `update:key` 方案。
+
 ## 典型场景
 
 删除分支前：
@@ -68,4 +74,5 @@ const cardImageStyle = computed<Record<string, string>>(() => ({
 - 这层中间变量删掉后，模板或下游逻辑是否仍然清晰可读。
 - 删除分支后，原来的类型声明、`undefined` 联合类型、兼容判断是否已经失效。
 - 这次新增或修改的 DOM 模板引用，在项目版本满足时，是否已经优先使用 `useTemplateRef`。
+- 这次新增或修改的组件双向绑定，是否已经优先使用 `defineModel`，而不是继续沿用 `update:key`。
 - 这次简化是否只落在当前改动链路内，没有顺手重构无关代码。
