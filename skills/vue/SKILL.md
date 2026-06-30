@@ -40,6 +40,7 @@ description: 在当前仓库内处理 Vue 3、TypeScript 组件时使用。适�
 - 组件对外暴露双向绑定能力时，只要当前场景适合使用 `defineModel`，就优先使用 `defineModel`。
 - 能用 `defineModel` 表达的 `v-model` / 多 `v-model` 交互，不要继续写成 `prop` + `update:key` 这类手动属性事件配对方式。
 - 只有在项目版本、历史接口兼容或明确的非 `v-model` 语义不适合 `defineModel` 时，才保留 `update:key` 方案。
+- 不要把 `const reactive(...)` 声明的对象，直接作为组件级 `v-model` / `v-model:key` 的绑定目标；这类绑定需要支持整值回写，优先改用 `ref`、`shallowRef`、可写 `computed`，或绑定到 `reactive` 对象上的具体可写字段。
 
 ## 典型场景
 
@@ -75,4 +76,5 @@ const cardImageStyle = computed<Record<string, string>>(() => ({
 - 删除分支后，原来的类型声明、`undefined` 联合类型、兼容判断是否已经失效。
 - 这次新增或修改的 DOM 模板引用，在项目版本满足时，是否已经优先使用 `useTemplateRef`。
 - 这次新增或修改的组件双向绑定，是否已经优先使用 `defineModel`，而不是继续沿用 `update:key`。
+- 这次新增或修改的组件级 `v-model` 绑定目标，是否具备整值回写能力，而不是直接绑定 `const reactive(...)` 对象本身。
 - 这次简化是否只落在当前改动链路内，没有顺手重构无关代码。

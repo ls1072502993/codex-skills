@@ -34,7 +34,7 @@
 - `generate-ui`：UI 生成规则，适用于页面、组件和静态界面开发，强调直接交付代码且默认不启动本地预览、不用内置浏览器验排版
 - `git`：提交信息与提交流程规则，基于 Conventional Commits 并结合仓库本地约束
 - `uniapp`：uni-app 开发与小程序发行上传相关流程规则
-- `vue`：Vue 3 + TypeScript 组件开发规则，强调 `.vue` 文件按 `template`、`script`、`style` 排序、响应式简化、DOM 模板引用优先使用 `useTemplateRef`、适合 `defineModel` 的双向绑定不要退回到 `update:key` 交互方式，以及局部最小改动
+- `vue`：Vue 3 + TypeScript 组件开发规则，强调 `.vue` 文件按 `template`、`script`、`style` 排序、响应式简化、DOM 模板引用优先使用 `useTemplateRef`、适合 `defineModel` 的双向绑定不要退回到 `update:key` 交互方式、组件级 `v-model` 不直接绑定 `const reactive(...)` 对象，以及局部最小改动
 
 ## 使用方式
 
