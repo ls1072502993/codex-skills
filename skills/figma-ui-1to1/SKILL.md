@@ -9,7 +9,7 @@ description: 以接近 1:1 的精度实现或审查基于 Figma 的营销页、�
 
 将 Figma 设计稿作为唯一事实来源。产出应是可开发的页面，具备真实 DOM、真实素材，并尽量减少与设计稿的视觉偏差。只要设计稿已经定义了视觉结构，就不要擅自改写实现方式。
 
-这是 Figma 高还原实现约束，不替代通用前端 skill；如果任务同时命中 `generate-ui`、`frontend-global`、`vue`、`css` 等 skill，继续叠加执行。
+这是 Figma 高还原实现约束，不替代通用前端 skill；其他通用执行习惯继续遵循 `frontend-global`，同时按任务叠加 `generate-ui`、`vue`、`css` 等专项 skill。
 
 ## 核心规则
 

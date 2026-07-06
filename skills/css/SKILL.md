@@ -1,11 +1,11 @@
 ---
 name: css
-description: Generate and modify SCSS styles for this repository. Use when adding or updating component, page, or module styles, and strictly output valid SCSS with nested structure and syntax.
+description: 在当前仓库新增或修改 SCSS 样式时使用。适用于组件、页面或模块样式调整，要求输出合法 SCSS，并保持清晰的嵌套层级与结构。
 metadata:
   short-description: SCSS 样式约束
 ---
 
-# CSS
+# SCSS 样式规则
 
 ## 适用场景
 
@@ -54,6 +54,5 @@ metadata:
 
 ## 执行提醒
 
-- 先读取完整上下文，再补样式。
-- 保持最小改动，只处理当前任务要求的样式范围。
+- 除样式组织专属规则外，其余执行习惯继续遵循 `frontend-global`。
 - 如果文件已存在 SCSS 组织方式，优先延续原有嵌套风格。

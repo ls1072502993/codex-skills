@@ -1,11 +1,11 @@
 ---
 name: comment
-description: Apply the repository's comment rules. Use whenever any code file is added or modified in this project. Treat comment completion as a required part of the code change, especially for concise Chinese comments, function notes, variable type clarity, and template/script/type block separators organized by functional module.
+description: 在当前仓库新增或修改代码文件时使用。注释补充属于代码改动交付的一部分，重点约束中文注释、函数备注、变量类型声明，以及按功能模块组织的 template、script、type 注释分隔。
 metadata:
   short-description: 项目注释约束
 ---
 
-# Comment Rules
+# 注释规则
 
 ## 适用场景
 
@@ -66,6 +66,6 @@ metadata:
 
 ## 执行提醒
 
-- 保持最小改动，只补当前改动必须的注释。
+- 除注释规范外，其余执行习惯继续遵循 `frontend-global`。
 - 注释风格与现有文件保持一致，不主动重构已有结构。
 - 在结束当前代码改动前，自检一次 `template` 模块分隔注释、`script` 分块注释、函数备注和改动点中文说明是否齐全。

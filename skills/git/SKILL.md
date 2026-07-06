@@ -1,11 +1,11 @@
 ---
 name: git
-description: Apply the repository's git message constraints when generating commit messages, commit summaries, or change descriptions for this repository.
+description: 在当前仓库生成 commit message、提交摘要或变更描述时使用。重点约束提交信息格式、范围表达和本仓库的提交表述习惯。
 metadata:
   short-description: 项目提交约束
 ---
 
-# Git Rules
+# 提交信息规则
 
 ## 概述
 
@@ -53,10 +53,8 @@ metadata:
 ## 本仓库规则
 
 - 若当前改动没有更具体的仓库规则，语义前缀保持英文。
-- 提交代码时默认直接在当前分支上提交，除非用户明确要求新建或切换分支。
-- 提交代码时默认提交当前工作区内所有已修改文件和未跟踪文件，除非用户明确要求只提交本次对话的修改。
-- 不得因为“疑似无关改动”“dirty worktree”或类似通用习惯判断，自行缩小提交范围。
-- 只有在用户明确要求只提交部分文件或部分改动时，才允许缩小提交范围。
+- 提交范围以用户要求、当前暂存状态和当前任务上下文为准。
+- 工作区存在混合改动时，先提示是否拆分提交或确认提交范围，再生成提交信息。
 - `subject` 使用简短直接中文，不添加句号。
 - 生成提交信息前，先基于 `git status --short`、已暂存 diff 或相关文件改动判断真实变更范围。
 - 避免使用空泛描述。
