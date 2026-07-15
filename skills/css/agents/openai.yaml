@@ -1,4 +1,4 @@
 interface:
   display_name: "CSS"
   short_description: "Generate valid nested SCSS for repository styles"
-  default_prompt: "Use this skill when adding or updating style code in this repository, and strictly generate legal SCSS with nested syntax."
+  default_prompt: "在本仓库新增或修改样式代码时使用 $css，完整执行该技能中的全部适用规则与交付条件，并严格生成使用合法嵌套语法的 SCSS。"

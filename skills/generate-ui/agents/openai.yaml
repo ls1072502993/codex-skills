@@ -1,7 +1,7 @@
 interface:
   display_name: "Generate UI"
   short_description: "当前仓库UI生成与界面代码交付规则"
-  default_prompt: "Use $generate-ui to create or modify UI in this repository, keep changes minimal, and do not launch local preview or inspect layout in the built-in browser unless the user explicitly asks."
+  default_prompt: "在本仓库生成或修改 UI 时使用 $generate-ui，完整执行该技能中的全部适用规则与交付条件，保持最小改动，并且仅在用户明确要求时启动本地预览。"
 
 policy:
   allow_implicit_invocation: true

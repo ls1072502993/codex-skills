@@ -1,7 +1,7 @@
-﻿interface:
+interface:
   display_name: "Figma UI 1:1"
   short_description: "面向 Figma 页面高还原开发的布局与素材实现规范"
-  default_prompt: "使用 $figma-ui-1to1 按设计稿栅格、真实素材和接近 1:1 的精度实现一个 Figma 页面。"
+  default_prompt: "使用 $figma-ui-1to1 按设计稿栅格、真实素材和接近 1:1 的精度实现 Figma 页面，并完整执行该技能中的全部适用规则与交付条件。"
 
 policy:
   allow_implicit_invocation: true

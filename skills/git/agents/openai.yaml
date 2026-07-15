@@ -1,7 +1,7 @@
 interface:
   display_name: "Git"
   short_description: "当前仓库提交信息生成与提交流程规则"
-  default_prompt: "Use $git when generating commit messages, commit summaries, or submission descriptions in this repository."
+  default_prompt: "在本仓库生成提交信息、提交摘要或变更描述时使用 $git，并完整执行该技能中的全部适用规则与交付条件。"
 
 policy:
   allow_implicit_invocation: true
