@@ -1,0 +1,7 @@
+interface:
+  display_name: "React"
+  short_description: "React 组件与 CSS Modules SCSS 样式规则"
+  default_prompt: "在本仓库新增或修改 React 组件时使用 $react，完整执行该技能中的全部适用规则与交付条件；样式必须使用 module.scss，并让 DOM 嵌套与 SCSS 嵌套严格对应。"
+
+policy:
+  allow_implicit_invocation: true
