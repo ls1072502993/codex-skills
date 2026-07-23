@@ -1,6 +1,6 @@
 ---
 name: vue
-description: 在当前仓库内处理 Vue 3、TypeScript 组件时使用。适用于修改 Vue SFC、Composition API、组件状态、事件、响应式数据、模板渲染和样式联动，以及类型收窄、分支或兼容逻辑删除后的链路清理，要求保持最小改动并清除失效的纯透传代码。
+description: 在当前仓库内处理 Vue 3、TypeScript 组件时使用。适用于修改 Vue SFC、Composition API、组件状态、事件、响应式数据、模板渲染、第三方组件二次封装和样式联动，以及类型收窄、分支或兼容逻辑删除后的链路清理；要求使用 $attrs 透传第三方能力、使用 defineModel 封装双向交互，并清除失效的纯透传代码。
 ---
 
 # Vue 组件规则
@@ -51,12 +51,49 @@ description: 在当前仓库内处理 Vue 3、TypeScript 组件时使用。适�
 - 展示图片时，不在 `script` 中通过 `import` 引入图片资源，直接在 `template` 中结合 `v-if` 判断是否渲染对应标签。
 - 使用 `ref` 获取 DOM 元素时，如果项目内 Vue 版本支持 `useTemplateRef`，优先使用 `useTemplateRef`，不要直接用 `ref` 声明模板引用。
 
+## 第三方组件二次封装
+
+- 封装 Element Plus 等第三方组件时，先确定承接外部能力的主组件；使用 `defineOptions({ inheritAttrs: false })`，并在主组件上显式写 `v-bind="$attrs"`，不依赖单根组件的自动继承。
+- 外部传入的 `class`、`style`、第三方属性和第三方事件默认通过 `$attrs` 直接交给主组件；没有转换、校验、业务映射或内部消费的字段，禁止在 `defineProps` 中重复声明。
+- 纯第三方默认值直接写在第三方组件标签上，并放在 `v-bind="$attrs"` 前，使外部同名属性可以覆盖默认值；属于封装强约束、禁止外部覆盖的属性放在 `v-bind="$attrs"` 后。
+- 不为过滤或原样转发属性新增 `useAttrs`、`computed`、中间对象或纯透传变量。只有需要把属性拆分给多个内部组件，或确有转换、校验、业务映射时，才允许读取并处理 `attrs`。
+- 只有字段参与封装组件内部逻辑、需要适配数据结构、需要路由到非主组件，或本身属于封装层业务 API 时，才保留为 props；这类 props 的默认值继续按内部语义维护。
+- 一个封装中存在多个第三方组件时，不把同一份 `$attrs` 无差别绑定到所有组件；只绑定主组件，其他组件通过明确 props 或插槽接收所需配置。
+
 ## 组件交互约束
 
-- 组件对外暴露双向绑定能力时，只要当前场景适合使用 `defineModel`，就优先使用 `defineModel`。
-- 能用 `defineModel` 表达的 `v-model` / 多 `v-model` 交互，不要继续写成 `prop` + `update:key` 这类手动属性事件配对方式。
-- 只有在项目版本、历史接口兼容或明确的非 `v-model` 语义不适合 `defineModel` 时，才保留 `update:key` 方案。
+- 新增或修改封装组件前，必须把对外字段分为：双向状态、单向配置、动作事件、第三方透传。未完成分类前不得直接沿用现有 `defineProps` / `defineEmits` 写法。
+- 父组件需要传入且子组件会回写的值属于双向状态，必须使用 `defineModel`；常见字段包括 `modelValue`、`visible`、`show`、`currentPage`、`pageSize`、`checkedKeys`、开始时间和结束时间。
+- 多个独立双向状态分别使用命名 `defineModel('key')`，禁止合并成一个只为传值服务的对象，也禁止继续写成 `prop` + `update:key`。
+- 第三方组件只需要同形态值时，直接把 `defineModel` 结果绑定到第三方 `v-model`；外部状态与第三方值形态不一致时，使用一个可写 `computed` 完成双向适配，不手写 `update:*` 事件。
+- 只读配置使用 props；点击、提交、完成、刷新等不表示状态回写的动作使用 `defineEmits`。不要把动作事件改造成 `defineModel`。
+- 仅当项目 Vue 版本不支持 `defineModel`，或已存在且本次明确禁止变更的公共兼容协议无法迁移时，才允许保留 `prop` + `update:key`；必须在代码中说明原因，不能仅以“历史写法”为由跳过。
 - 不要把 `const reactive(...)` 声明的对象，直接作为组件级 `v-model` / `v-model:key` 的绑定目标；这类绑定需要支持整值回写，优先改用 `ref`、`shallowRef`、可写 `computed`，或绑定到 `reactive` 对象上的具体可写字段。
+
+日期范围封装参考：
+
+```vue
+<template>
+  <el-date-picker v-model="dateRange" value-format="YYYY-MM-DD HH:mm:ss" v-bind="$attrs" type="daterange" />
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+
+defineOptions({ inheritAttrs: false })
+
+const startTime = defineModel<string | undefined>('startTime')
+const endTime = defineModel<string | undefined>('endTime')
+
+const dateRange = computed<string[] | null>({
+  get: () => (startTime.value && endTime.value ? [startTime.value, endTime.value] : null),
+  set: value => {
+    startTime.value = value?.[0]
+    endTime.value = value?.[1]
+  },
+})
+</script>
+```
 
 ## 典型场景
 
@@ -90,6 +127,7 @@ const cardImageStyle = computed<Record<string, string>>(() => ({
 - 删除没有新增派生逻辑的 `computed` 和没有独立语义的中间变量。
 - 删除分支后同步清理失效的类型声明、`undefined` 联合类型、兼容判断和纯透传函数。
 - 新增或修改 DOM 模板引用时，在项目版本满足的情况下优先使用 `useTemplateRef`。
-- 新增或修改组件双向绑定时，优先使用 `defineModel`，不继续沿用可替换的 `update:key`。
+- 检查第三方封装是否已将 `$attrs` 显式绑定到主组件，纯第三方字段和默认值是否已从 props 下沉到组件标签。
+- 检查所有对外可回写值是否使用 `defineModel`，多值适配是否使用命名 model 与可写 `computed`，不保留可替换的 `update:key`。
 - 确认组件级 `v-model` 绑定目标具备整值回写能力，不直接绑定 `const reactive(...)` 对象本身。
 - 确认清理仅覆盖当前变更链路，没有顺手重构无关代码。
