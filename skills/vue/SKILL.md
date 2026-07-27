@@ -20,6 +20,8 @@ description: 在当前仓库内处理 Vue 3、TypeScript 组件时使用。适�
 ## 必须遵守
 
 - `.vue` 文件内区块顺序固定为 `template`、`script`、`style`。
+- `.vue` 文件中的每一个 `<style>` 块都必须声明 `scoped`，禁止保留或新增非 scoped 样式块；同一文件存在多个 `<style>` 块时，每个样式块都必须分别声明 `scoped`。
+- Teleport 内容、Element Plus 内部节点或其他确需跨越 scoped 边界的样式，必须继续放在 scoped 样式块中，并使用精确的 `:global()`、`:deep()` 或组件提供的 `header-class`、`body-class`、`footer-class` 等能力命中；禁止通过移除 `scoped` 扩大样式作用域。
 - 保持现有 `script setup`、Composition API、TypeScript 写法，不额外切换风格。
 - 页面状态、表单状态、查询条件按实际复杂度组织；组件能直接使用现有响应式数据时，不额外新增中间层变量、别名或包裹层。
 - 删除旧分支、旧兜底、旧兼容或类型转换后，必须回查当前响应式链路及全部调用点，清理无意义的中转函数、变量和类型声明。
@@ -133,6 +135,7 @@ const cardImageStyle = computed<Record<string, string>>(() => ({
 
 ## 交付前检查
 
+- 全量检索本次工作范围内的 `.vue` 文件，确认不存在未声明 `scoped` 的 `<style>`；仓库级检查任务必须保证项目内未 scoped 样式块数量为零。
 - 删除没有新增派生逻辑的 `computed` 和没有独立语义的中间变量。
 - 删除分支后同步清理失效的类型声明、`undefined` 联合类型、兼容判断和纯透传函数。
 - 新增或修改 DOM 模板引用时，在项目版本满足的情况下优先使用 `useTemplateRef`。
