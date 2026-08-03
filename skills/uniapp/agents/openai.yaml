@@ -1,4 +1,0 @@
-interface:
-  display_name: "UniApp"
-  short_description: "当前仓库uni-app页面实现与平台能力规则"
-  default_prompt: "在本仓库实现 uni-app 页面、生命周期逻辑、平台分支或请求流程时使用 $uniapp，并完整执行该技能中的全部适用规则与交付条件。"
