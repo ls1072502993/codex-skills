@@ -1,6 +1,6 @@
 ---
 name: vue
-description: 在当前仓库内处理 Vue 3、TypeScript 页面与组件时使用。适用于新增、重命名或修改页面和组件的目录、文件、Vue SFC、Composition API、组件状态、事件、响应式数据、模板渲染、组件默认配置去重、第三方组件二次封装和样式联动，以及类型收窄、分支或兼容逻辑删除后的链路清理；要求页面目录和名称使用首字母小写的 camelCase、组件目录和名称使用首字母大写的 PascalCase，禁止使用横线命名，并使用 $attrs 透传第三方能力、使用 defineModel 封装双向交互、清除失效的纯透传代码。
+description: 在当前仓库内处理 Vue 3、TypeScript 页面、组件与路由时使用。适用于新增、重命名或修改页面和组件的目录、文件、Vue SFC、路由 path、Composition API、组件状态、事件、响应式数据、模板渲染、组件默认配置去重、第三方组件二次封装和样式联动，以及类型收窄、分支或兼容逻辑删除后的链路清理；要求页面目录、名称和路由 path 使用首字母小写的 camelCase、组件目录和名称使用首字母大写的 PascalCase，禁止使用横线命名，并使用 $attrs 透传第三方能力、使用 defineModel 封装双向交互、清除失效的纯透传代码。
 ---
 
 # Vue 组件规则
@@ -31,6 +31,7 @@ description: 在当前仓库内处理 Vue 3、TypeScript 页面与组件时使�
 ## 页面与组件命名
 
 - `src/views` 下的页面、页面分组和子页面目录统一使用首字母小写的 camelCase，如 `login`、`orderDetail`；禁止使用 PascalCase、横线或下划线命名。
+- 路由 `path` 的静态业务路径段统一使用首字母小写的 camelCase，如 `/orderDetail`、`userCenter`；禁止使用 PascalCase、横线或下划线命名，根路径 `/` 除外。
 - 每个路由页面统一使用“页面目录 + `index.vue`”结构，不使用首字母大写的页面目录或页面文件名代替入口文件，如 `src/views/orderDetail/index.vue`。
 - 公共组件和页面私有组件的业务组件目录与组件名称统一使用首字母大写的 PascalCase，如 `AppCard`、`CompanySelectPopup`，并使用“组件目录 + `index.vue`”结构；禁止使用横线或下划线命名。
 - 组件集合目录等纯组织目录使用首字母小写的 camelCase，如 `components`、`formItems`；其下具体业务组件目录继续使用 PascalCase。
@@ -147,6 +148,7 @@ const cardImageStyle = computed<Record<string, string>>(() => ({
 ## 交付前检查
 
 - 检查新增或重命名的页面目录和名称是否为首字母小写的 camelCase、组件目录和名称是否为首字母大写的 PascalCase，确认未使用横线或下划线，并确认入口文件统一为 `index.vue`。
+- 检查新增或修改的路由 `path`，确认除根路径 `/` 外的静态业务路径段均为首字母小写的 camelCase，且未使用 PascalCase、横线或下划线。
 - 搜索目录和文件的旧名称及不同大小写写法，确认 import、路由和自动注册路径只保留最终名称。
 - 全量检索本次工作范围内的 `.vue` 文件，确认不存在未声明 `scoped` 的 `<style>`；仓库级检查任务必须保证项目内未 scoped 样式块数量为零。
 - 删除没有新增派生逻辑的 `computed` 和没有独立语义的中间变量。

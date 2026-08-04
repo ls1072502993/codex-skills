@@ -1,7 +1,7 @@
 interface:
   display_name: "Vue"
-  short_description: "Vue页面组件命名、封装与响应式收口规则"
-  default_prompt: "使用 $vue 处理 Vue 页面与组件，遵循页面和组件目录命名规则，清理重复默认配置，显式透传第三方属性并用 defineModel 封装双向交互值。"
+  short_description: "Vue页面、组件、路由命名、交互封装与响应式收口规则"
+  default_prompt: "使用 $vue 处理 Vue 页面、组件与路由，遵循目录、组件和路由 path 命名规则，清理重复默认配置，显式透传第三方属性并用 defineModel 封装双向交互值。"
 
 policy:
   allow_implicit_invocation: true
