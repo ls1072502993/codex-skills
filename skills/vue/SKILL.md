@@ -62,6 +62,7 @@ description: 在当前仓库内处理 Vue 3、TypeScript 页面、组件与路�
 
 ## 模板约束
 
+- 每个 Vue 单文件组件的 `<template>` 顶层必须使用一个原生 `<div>` 包裹；模板注释、组件和其他内容均放在该 `<div>` 内，不在顶层留下并列节点。
 - 展示图片时，不在 `script` 中通过 `import` 引入图片资源，直接在 `template` 中结合 `v-if` 判断是否渲染对应标签。
 - 使用 `ref` 获取 DOM 元素时，如果项目内 Vue 版本支持 `useTemplateRef`，优先使用 `useTemplateRef`，不要直接用 `ref` 声明模板引用。
 
@@ -97,7 +98,9 @@ description: 在当前仓库内处理 Vue 3、TypeScript 页面、组件与路�
 
 ```vue
 <template>
-  <el-date-picker v-model="dateRange" value-format="YYYY-MM-DD HH:mm:ss" v-bind="$attrs" type="daterange" />
+  <div>
+    <el-date-picker v-model="dateRange" value-format="YYYY-MM-DD HH:mm:ss" v-bind="$attrs" type="daterange" />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -147,6 +150,7 @@ const cardImageStyle = computed<Record<string, string>>(() => ({
 
 ## 交付前检查
 
+- 确认本次新增或修改的 Vue 单文件组件均以原生 `<div>` 作为 `<template>` 唯一顶层节点，模板注释也位于其内。
 - 检查新增或重命名的页面目录和名称是否为首字母小写的 camelCase、组件目录和名称是否为首字母大写的 PascalCase，确认未使用横线或下划线，并确认入口文件统一为 `index.vue`。
 - 检查新增或修改的路由 `path`，确认除根路径 `/` 外的静态业务路径段均为首字母小写的 camelCase，且未使用 PascalCase、横线或下划线。
 - 搜索目录和文件的旧名称及不同大小写写法，确认 import、路由和自动注册路径只保留最终名称。
